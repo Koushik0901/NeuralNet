@@ -64,18 +64,18 @@ class Conv2d(Layer):
     def __init__(self, kernels: int, kernel_size: int, input_shape: int) -> None:
         super().__init__()
         input_depth, input_height, input_width = input_shape
-        self.filters = filters
+        self.kernels = kernels
         self.input_shape = input_shape
         self.input_depth = input_depth
-        self.output_shape = (filters, input_height - kernel_size + 1, input_width - kernel_size + 1)
-        self.kernels_shape = (filters, input_depth, kernel_size, kernel_size)
+        self.output_shape = (kernels, input_height - kernel_size + 1, input_width - kernel_size + 1)
+        self.kernels_shape = (kernels, input_depth, kernel_size, kernel_size)
         self.kernels = np.random.randn(*self.kernels_shape)
         self.params["b"] = np.random.randn(*self.output_shape)
 
     def forward(self, inputs: Tensor) -> Tensor:
         self.inputs = inputs
         self.outputs = np.copy(self.params["b"])
-        for i in range(self.filters):
+        for i in range(self.kernels):
             for j in range(self.input_depth):
                 self.outputs[i] += signal.correlate2d(self.inputs[j], self.kernels[i, j], "valid")
         return self.outputs

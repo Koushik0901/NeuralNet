@@ -10,3 +10,24 @@
 | NeuralNet.activations | Has the implementation of activation functions |
 | NeuralNet.optim | Has the implementation of various optimizers |
 | NeuralNet.loss | Has the implementation of various loss functions |
+
+## Example
+```python
+# Necessary imports
+from NeuralNet.layers import Linear
+from NeuralNet.activations import ReLU
+import NeuralNet.optim as optim
+from NeuralNet.losses import MSE
+from NeuralNet import Trainer, Sequential
+
+# Define the network
+net = nn.Sequential(
+    [
+        Linear(2, 2),
+        Tanh(),
+        Linear(2, 2)
+    ]
+)
+# Train the model
+Trainer.train(net=net, inputs=inputs, targets=targets, loss_fn=MSE(), optimizer=optim.SGD(lr=1e-3))
+```
