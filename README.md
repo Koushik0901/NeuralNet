@@ -23,9 +23,9 @@ from NeuralNet import Trainer, Sequential
 # Define the network
 net = nn.Sequential(
     [
-        Linear(2, 2),
-        Tanh(),
-        Linear(2, 2)
+        Linear(1, 10),
+        ReLU(),
+        Linear(10, 1)
     ]
 )
 # Train the model
